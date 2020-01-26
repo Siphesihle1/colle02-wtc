@@ -5,73 +5,71 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: smthethw <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/25 11:20:27 by smthethw          #+#    #+#             */
-/*   Updated: 2020/01/25 13:36:39 by smthethw         ###   ########.fr       */
+/*   Created: 2020/01/26 15:36:35 by smthethw          #+#    #+#             */
+/*   Updated: 2020/01/26 17:21:38 by smthethw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdlib.h>
 #include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <stdio.h>
+#include <stdlib.h>
+#include "ft_lib.h"
 
-int		ft_strlen(char *str)
+#define MAX_BUFF_SIZE 500
+
+void	print_rush(char **rush, int x, int y)
 {
 	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
-char	ft_getchar()
-{
-	char c;
-	read(1, &c, 1);
-	return (c);
-}	
-
-void	ft_getstr(char *str)
-{
-	int i;
- 	char c;
-
-	i = 0;
-	c = ft_getchar();
-	while (c != '\n')
-	{
-		str[i] = c;
-		c = ft_getchar();
-		i++;
-		
-	}
-	str[i] = '\0';
-}
-
-int		main()
-{
-	char *line;
 	
-	ft_getstr(line);
-	if (line[0] == line[ft_strlen(line) - 1])
+	i = 0;
+	while (i < 5)
 	{
-		//do something
-		if (line[0] == 'o')
+		if (*rush[i])
 		{
-			printf("Rush00");
+			if (*rush[i - 1])
+			{
+				ft_putstr(" || ");
+			}
+			ft_putstr(rush[i]);
+			ft_putchar(' ');
+			ft_putchar('[');
+			ft_putnbr(x);
+			ft_putchar(']');
+			ft_putchar(' ');
+			ft_putchar('[');
+			ft_putnbr(y);
+			ft_putchar(']');
 		}
-		else if (line[0] == '*')
-		{
-			printf("Rush01");
-		}
+		i++;		
 	}
+}
+
+int	main()
+{
+	char line[MAX_BUFF_SIZE];
+	int i;
+	char **rush;
+	int x;
+
+	i = 0;
+	ft_getstr(line);
+	x = ft_strlen(line);
+	rush = is_rush(line, x);
+	if(rush)
+	{
+		while (*line)
+		{
+			ft_getstr(line);
+			i++;
+		}
+		print_rush(rush, x, i);	
+	}
+	else
+	{
+		ft_putstr("aucune");
+	}
+	ft_putchar('\n');
+	free(rush);
 	return (0);
 }
-
 
