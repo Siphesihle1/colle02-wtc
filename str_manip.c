@@ -36,8 +36,8 @@ void	ft_putnbr(int n)
 		ft_putchar(n + '0');
 		return ;
 	}
-	ft_putchar((n % 10) + '0');
 	ft_putnbr(n / 10);
+	ft_putchar((n % 10) + '0');
 }
 
 int	ft_strlen(char *str)

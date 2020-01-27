@@ -24,9 +24,9 @@ void	print_rush(char **rush, int x, int y)
 	i = 0;
 	while (i < 5)
 	{
-		if (*rush[i])
+		if (rush[i] && rush[i][0])
 		{
-			if (*rush[i - 1])
+			if (i && rush[i - 1][0])
 			{
 				ft_putstr(" || ");
 			}
